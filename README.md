@@ -1,3 +1,9 @@
+The goal of this project is to fill some gaps at home for certain utilities (and brush up on some React at the same time).
+
+Includes:
+Self-hosted notepad for things such as sharing links between devices, creating grocery lists, etc.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
