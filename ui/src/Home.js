@@ -8,25 +8,35 @@ class Home extends React.Component {
 
         this.state = {
             isLoading: true,
-            name: "Empty",
+            notes: [],
         };
     }
 
     render() {
+        let notes = this.state.notes
+
+        let noteDivs = notes ? notes.map(item => <div key={item.id}> {item.note} </div>) : (<div>No Notes</div>);
+
         return (
-            <div>{this.state.name}</div>
+            <div>
+                {noteDivs}
+            </div>
         );
     }
 
     async componentDidMount() {
-        let userData = await API.get('user');
+        let userData = await API.get('note/get', {
+            params: {
+              user: 1 //hardcode for now
+            }
+          })
 
         // Parse the results for ease of use.
-        let userName = userData.data.testUser;
+        let notes = userData.data;
 
 
         this.setState({
-            name: userName
+            notes: notes
         });
     }
 }
