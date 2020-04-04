@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "/",
+  baseURL: "/hh/",
   responseType: "json"
 });
