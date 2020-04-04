@@ -5,12 +5,12 @@ from db_util import db_connect
 
 app = Flask(__name__)
 
-@app.route('/user')
+@app.route('/hh/user')
 def getTestUser():
     return jsonify(testUser='test')
 
 
-@app.route('/note', methods=["POST"])
+@app.route('/hh/note', methods=["POST"])
 def addNewNote():
     req_data = request.get_json()
     userId = req_data['userId']
@@ -29,14 +29,14 @@ def addNewNote():
     con.commit()
     return createResponse({"newRowId": rowId })
 
-@app.route('/note/update', methods=["POST"])
+@app.route('/hh/note/update', methods=["POST"])
 def updateNote():
     req_data = request.get_json()
     noteId = req_data['noteId']
     note = req_data['note']
 
     if noteId is None:
-        return createResponse(None, "Invalid Note ID: "+ noteId)
+        return createResponse(None, "Invalid Note ID: "+ str(noteId))
 
     con = db_connect()
     cur = con.cursor()
@@ -46,20 +46,20 @@ def updateNote():
 
     con.commit()
 
-    return createResponse("Row Updated: ID=" + noteId)
+    return createResponse("Row Updated: ID=" + str(noteId))
 
 
-@app.route('/note', methods=["GET"])
+@app.route('/hh/note', methods=["GET"])
 def getNotes():
     userId = request.args.get('user')
 
     if userId is None:
-        return createResponse(None, "User Not found: ID="+userId) 
+        return createResponse(None, "User Not found: ID="+str(userId)) 
 
     con = db_connect()
     cur = con.cursor()
     get_notes_sql = "SELECT * FROM note WHERE userId=?"
-    cur.execute(get_notes_sql, userId)
+    cur.execute(get_notes_sql, (userId,))
 
     notes = []
 
@@ -72,23 +72,22 @@ def getNotes():
 
     return createResponse(notes)
 
-@app.route('/note/delete', methods=["GET"])
+@app.route('/hh/note/delete', methods=["GET"])
 def deleteNote():
     noteId = request.args.get('id')
     
     if noteId is None:
-        return createResponse(None, "Note not found: ID="+noteId)
-
+        return createResponse(None, "Note not found: ID="+ str(noteId))
 
     print("Deleting Note ID=" + noteId)
     con = db_connect()
     cur = con.cursor()
     delete_note_sql = "DELETE FROM note WHERE id=?"
-    cur.execute(delete_note_sql, noteId)
+    cur.execute(delete_note_sql, (noteId,))
 
     con.commit()
 
-    return createResponse("Deleted note" + noteId)
+    return createResponse("Deleted note" + str(noteId))
     
 def createResponse(data, error=None):
     response = {
