@@ -1,0 +1,38 @@
+.sticky-note {
+    background-color: rgb(209, 209, 95);
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-note-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.delete-note {
+    cursor: pointer;
+    text-align: right;
+    margin-top: 5px;
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.note-area {
+    flex: 1 1 auto;
+}
+
+.note-area textarea
+{
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    margin: 5px;
+    width: 90%;
+    height: 90%;
+     /* flex: 1 1 auto; */
+    resize: none;
+}
