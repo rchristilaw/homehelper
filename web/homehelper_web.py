@@ -10,29 +10,54 @@ def getTestUser():
     return jsonify(testUser='test')
 
 
-@app.route('/note/add', methods=["POST"])
-def addNewNot():
-    userId = request.form['userId']
-    note = request.form['note']
+@app.route('/note', methods=["POST"])
+def addNewNote():
+    req_data = request.get_json()
+    userId = req_data['userId']
+    note = req_data['note']
     
     if userId is None or note is None:
-        return ""
+        return createResponse(None, "Invalid Create Note request")
 
     con = db_connect()
     cur = con.cursor()
+
     add_note_sql = "INSERT INTO note (userId, note) VALUES (?, ?)"
     cur.execute(add_note_sql, (userId, note))
     rowId = cur.lastrowid
 
     con.commit()
-    return str(rowId)
+    return createResponse({"newRowId": rowId })
 
-@app.route('/note/get', methods=["GET"])
-def getNotes():
-    userId = request.args.get('user')
+@app.route('/note/update', methods=["POST"])
+def updateNote():
+    req_data = request.get_json()
+    noteId = req_data['noteId']
+    note = req_data['note']
+
+    if noteId is None:
+        return createResponse(None, "Invalid Note ID: "+ noteId)
+
     con = db_connect()
     cur = con.cursor()
-    print(userId)
+
+    update_note_sql = "UPDATE note SET note=? WHERE id=?"
+    cur.execute(update_note_sql, (note, noteId))
+
+    con.commit()
+
+    return createResponse("Row Updated: ID=" + noteId)
+
+
+@app.route('/note', methods=["GET"])
+def getNotes():
+    userId = request.args.get('user')
+
+    if userId is None:
+        return createResponse(None, "User Not found: ID="+userId) 
+
+    con = db_connect()
+    cur = con.cursor()
     get_notes_sql = "SELECT * FROM note WHERE userId=?"
     cur.execute(get_notes_sql, userId)
 
@@ -45,7 +70,33 @@ def getNotes():
             }
         notes.append(note)
 
-    return jsonify(notes)
+    return createResponse(notes)
+
+@app.route('/note/delete', methods=["GET"])
+def deleteNote():
+    noteId = request.args.get('id')
+    
+    if noteId is None:
+        return createResponse(None, "Note not found: ID="+noteId)
+
+
+    print("Deleting Note ID=" + noteId)
+    con = db_connect()
+    cur = con.cursor()
+    delete_note_sql = "DELETE FROM note WHERE id=?"
+    cur.execute(delete_note_sql, noteId)
+
+    con.commit()
+
+    return createResponse("Deleted note" + noteId)
+    
+def createResponse(data, error=None):
+    response = {
+                "data": data,
+                "error": error
+                }
+    return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
