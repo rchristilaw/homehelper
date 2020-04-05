@@ -62,17 +62,15 @@ class NotePad extends React.Component {
     render() {
         let notes = this.state.notes;
 
-        let noteDivs = notes ? 
-        notes.map(item => 
+        let noteDivs = notes.map(item => 
             <StickyNote key={item.id} id={item.id} note={item.note} onDelete={this.deleteStickyNote} onUpdate={this.updateStickyNote} />
-        ) : (<div>No Notes</div>);
+        );
 
         return (
             <div className="notepad">
                 {noteDivs}
                 <div className="add-note" onClick={this.addStickyNote}>
-                    +<br/>
-                    Add Note
+                    <div className="add-note-icon">+</div>
                 </div>
             </div>
         );
