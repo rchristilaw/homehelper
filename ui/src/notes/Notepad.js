@@ -35,7 +35,7 @@ class NotePad extends React.Component {
         const params = { userId: this.state.userId, note: text };
         let response = await API.post('note', params);
 
-        let noteId = response.data.rowId;
+        let noteId = response.data.data.newRowId;
 
         let notes = this.state.notes;
 
