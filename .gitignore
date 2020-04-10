@@ -26,6 +26,6 @@ yarn-error.log*
 **/__pycache__/
 
 # DB 
-/web/db
+/db/homehelper.db
 
 **/homehelper.code-workspace
