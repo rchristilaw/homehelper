@@ -1,74 +1,25 @@
-The goal of this project is to fill some gaps at home for certain utilities (and brush up on some React at the same time).
+#HomeHelper
 
-Includes:
+##What is it?
+The goal of this project is to fill some gaps at home for certain utilities (and brush up on some React at the same time). I was initially inspired to create this application in order to improve cross platform efficiencies. One of the things I love about the Apple ecosystem is the seamlessness of working between devices (for me, my Macbook, Iphone and Ipad). Whether it be using ICloud notes, Safari's website sharing functionality, or sending text messages (sharing links with friends), it makes my life a lot easier. However, I am not solely invested in the Apple universe. I regularly use my Windows and Linux machines which unfortunately cannot interface with these Apple devices so easily.
+
+So I decided to create HomeHelper to bridge this gap by creating a local cloud source for notes where I can share links. A particular use case, I find a URL on my Linux machine that I want to share with a friend, but I don't want to share via email or Twitter or Facebook, etc. I want to send it by text/iMessage so I know they will see it immediately. So I open up HomeHelper on my computer, paste the URL, then open up HomeHelper on my phone and copy the link to send along. Simply put, it just serves as a centralized sticky note board to save links, ideas, reminders and lists.
+
+Stay tuned for future developments!
+
+##Changelog
+###v0.1
 Self-hosted notepad for things such as sharing links between devices, creating grocery lists, etc.
 
+##Technical Details
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## UI
+### Development
+To run UI locally, navigate to UI folder and run 'npm start' (must have node/npm installed).
 
-## Available Scripts
+### Build/Deploy
+'npm run build'
 
-In the project directory, you can run:
+Currently I just run this application on my local network on a Raspberry PI. 'npm run deploy' copies the built files into my nginx site folder to serve up the UI.
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
