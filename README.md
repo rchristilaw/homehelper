@@ -25,3 +25,15 @@ To run UI locally, navigate to UI folder and run 'npm start' (must have node/npm
 Currently I just run this application on my local network on a Raspberry PI. 'npm run deploy' copies the built files into my nginx site folder to serve up the UI.
 
 
+```
+docker build -t homehelper .
+docker run -it --rm -d -p 8080:80 --name homehelper homehelper
+```
+
+
+### Backend
+
+
+
+
+
