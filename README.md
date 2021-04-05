@@ -33,7 +33,10 @@ docker run -it --rm -d -p 8080:80 --name homehelper homehelper
 
 ### Backend
 
-
+```
+docker build -t homehelper-web .
+docker run -it --rm -d -p 5000:5000 homehelper-web [DB_FOLDER]
+```
 
 
 

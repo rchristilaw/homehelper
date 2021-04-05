@@ -7,5 +7,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-ENTRYPOINT [ "python3" ]
-CMD [ "homehelper_web.py" ]
+ENTRYPOINT [ "python3", "homehelper_web.py"]

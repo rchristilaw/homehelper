@@ -1,9 +1,11 @@
+import sys
 from flask import Flask
 from flask import jsonify
 from flask import request
-from db_util import db_connect
+from db_util import db_connect, chk_conn
 
 app = Flask(__name__)
+dbPath = None
 
 @app.route('/hh/user')
 def getTestUser():
@@ -19,7 +21,7 @@ def addNewNote():
     if userId is None or note is None:
         return createResponse(None, "Invalid Create Note request")
 
-    con = db_connect()
+    con = connectDb()
     cur = con.cursor()
 
     add_note_sql = "INSERT INTO note (userId, note) VALUES (?, ?)"
@@ -38,7 +40,7 @@ def updateNote():
     if noteId is None:
         return createResponse(None, "Invalid Note ID: "+ str(noteId))
 
-    con = db_connect()
+    con = connectDb()
     cur = con.cursor()
 
     update_note_sql = "UPDATE note SET note=? WHERE id=?"
@@ -56,7 +58,7 @@ def getNotes():
     if userId is None:
         return createResponse(None, "User Not found: ID="+str(userId)) 
 
-    con = db_connect()
+    con = connectDb()
     cur = con.cursor()
     get_notes_sql = "SELECT * FROM note WHERE userId=?"
     cur.execute(get_notes_sql, (userId,))
@@ -80,7 +82,7 @@ def deleteNote():
         return createResponse(None, "Note not found: ID="+ str(noteId))
 
     print("Deleting Note ID=" + noteId)
-    con = db_connect()
+    con = connectDb()
     cur = con.cursor()
     delete_note_sql = "DELETE FROM note WHERE id=?"
     cur.execute(delete_note_sql, (noteId,))
@@ -96,6 +98,16 @@ def createResponse(data, error=None):
                 }
     return jsonify(response)
 
+def connectDb():
+    return db_connect(dbPath)
+
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    if len(sys.argv) > 1:
+        dbPath = sys.argv[1]
+        if chk_conn(dbPath):
+            print("DB Connection Successful")
+        else:
+            print("DB Connection Failed")
+          
+    app.run(host='0.0.0.0', port=5000)
